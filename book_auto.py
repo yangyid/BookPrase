@@ -2,7 +2,7 @@ import os
 from pathlib import Path
 
 # ============================================================
-# 优化后的提示词（通俗版，保持不变）
+# 优化后的提示词（通俗版）
 # ============================================================
 PROMPTS = {
     "C++.md": """[指令] 允许开头包含一段简洁的[章节知识点概述]。请用通俗易懂的语言写作，多使用生活化比喻，让零基础读者也能轻松理解。绝对禁止任何AI自我介绍、客套话。直接输出要点概述后,严格按以下6部分输出:
@@ -79,7 +79,7 @@ PROMPTS = {
 }
 
 # ============================================================
-# 引擎代码：增加标题插入、合并顺序、自动分类增强
+# 引擎代码 – 彻底修复三引号冲突
 # ============================================================
 ENGINE_CODE = """
 # 书籍学习蓝图生成器 - 最终工程版 (独立运行引擎)
@@ -182,8 +182,8 @@ def select_category(cfg: Config) -> Optional[Path]:
     try:
         client = OpenAI(api_key=cfg.api_key, base_url="https://api.deepseek.com")
         prompt = (
-            f"请判断以下书籍所属的技术分类，只回答一个分类名，不要解释。\\n"
-            f"可选项：C++, Algorithms, ROS, OS, Networking, Design_Patterns, Linux, AI, Generic\\n"
+            "请判断以下书籍所属的技术分类，只回答一个分类名，不要解释。\\n"
+            "可选项：C++, Algorithms, ROS, OS, Networking, Design_Patterns, Linux, AI, Generic\\n"
             f"书名：{cfg.book_title}"
         )
         resp = client.chat.completions.create(
@@ -214,7 +214,7 @@ def select_category(cfg: Config) -> Optional[Path]:
     return prompt_path
 
 def safe_filename(title: str, max_len: int = 40) -> str:
-    cleaned = re.sub('[<>:"/\\\\|?*]', '_', title)
+    cleaned = re.sub('[<>:"/\\\\\\\\|?*]', '_', title)
     cleaned = cleaned.strip('_')
     return cleaned[:max_len]
 
@@ -265,18 +265,43 @@ def save_progress(completed: set):
     with open(PROGRESS_FILE, "w", encoding="utf-8") as f:
         json.dump({"completed": list(completed)}, f, ensure_ascii=False, indent=2)
 
+def format_chapter_content(raw: str, chapter_title: str) -> str:
+    lines = raw.split('\\n')
+    while lines and not lines[0].strip():
+        lines.pop(0)
+    while lines and not lines[-1].strip():
+        lines.pop()
+    if lines and lines[0].startswith('# '):
+        lines[0] = f"## {chapter_title}"
+    elif lines and lines[0].startswith('## '):
+        lines[0] = f"## {chapter_title}"
+    else:
+        lines.insert(0, f"## {chapter_title}")
+        lines.insert(1, "")
+    new_lines = []
+    for line in lines:
+        match = re.match(r'^(\\d+)\\.\\s*\\**(.+?)\\**\\s*$', line)
+        if match:
+            num = match.group(1)
+            title = match.group(2).strip()
+            title = re.sub(r'\\*+', '', title)
+            line = f"### {num}. {title}"
+        new_lines.append(line)
+    return '\\n'.join(new_lines)
+
 def generate_chapter_content(
     client, cfg, system_prompt, book_title, chapter_title
 ) -> Optional[str]:
-    format_instruction = '''
-[格式重申] 允许开头以[章节知识点概述]开头, 但禁止AI自我介绍、禁废话。请用生动比喻解释复杂概念，确保小白能看懂。随后严格按以下6部分输出:
-1. **核心理论断言,白话类比与大师避坑指南**
-2. **保姆级可编译运行代码**
-3. **内核验证实验**
-4. **理论-实践映射表**
-5. **可深挖的知识点与学习链接**
-6. **代码练习任务**
-'''
+    format_instruction = (
+        "[格式重申] 请使用 ### 三级标题标注各个部分，例如：### 1. 核心理论断言,白话类比与大师避坑指南。开头不要加总标题，我们会自动处理。严禁AI自我介绍。\\n"
+        "严格按照以下6部分输出：\\n"
+        "1. **核心理论断言,白话类比与大师避坑指南**\\n"
+        "2. **保姆级可编译运行代码**\\n"
+        "3. **内核验证实验**\\n"
+        "4. **理论-实践映射表**\\n"
+        "5. **可深挖的知识点与学习链接**\\n"
+        "6. **代码练习任务**"
+    )
     messages = [
         {"role": "system", "content": system_prompt + "\\n\\n" + format_instruction},
         {"role": "user", "content": f"书籍标题: {book_title}\\n章节标题: {chapter_title}"}
@@ -310,9 +335,10 @@ def extract_code_blocks(content: str, chapter_dir: Path) -> int:
             f.write(code.strip())
     return len(code_blocks)
 
-# ---- 按配置顺序合并文档 ----
 def merge_chapters(output_dir: Path, book_title: str, ordered_titles: List[str]):
-    existing_files = {f.stem: f for f in output_dir.glob("*.md")}
+    existing_files = {}
+    for f in output_dir.glob("*.md"):
+        existing_files[f.stem] = f
     ordered_files = []
     missing = []
     for title in ordered_titles:
@@ -321,44 +347,37 @@ def merge_chapters(output_dir: Path, book_title: str, ordered_titles: List[str])
             ordered_files.append(existing_files[safe])
         else:
             missing.append(title)
-
     if missing:
         logger.warning(f"以下章节文件未找到，将跳过合并: {missing}")
-
     if not ordered_files:
         logger.warning("没有找到任何章节文件，无法生成合并文档。")
         return
-
     merged_file_name = safe_filename(book_title) + "_合集.md"
     merged_path = output_dir.parent / merged_file_name
-
     with open(merged_path, "w", encoding="utf-8") as outfile:
         outfile.write(f"# {book_title}\\n\\n")
         outfile.write(f"*生成日期: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}*\\n\\n")
         outfile.write(f"*总章节数: {len(ordered_files)}*\\n\\n")
-
         outfile.write("## 目录\\n\\n")
         for ch_file in ordered_files:
             content = ch_file.read_text(encoding="utf-8")
             first_line = content.split('\\n')[0]
-            if first_line.startswith('# '):
-                ch_title = first_line[2:]
+            if first_line.startswith('## '):
+                ch_title = first_line[3:]
             else:
                 ch_title = ch_file.stem
             outfile.write(f"- [{ch_title}](#{ch_title.replace(' ', '-')})\\n")
         outfile.write("\\n---\\n\\n")
-
         for ch_file in ordered_files:
             content = ch_file.read_text(encoding="utf-8")
             outfile.write(content)
             outfile.write("\\n\\n---\\n\\n")
-
     logger.info(f"✅ 所有章节已按配置顺序合并为完整书籍文档: {merged_path}")
 
 def main():
     start_time = time.time()
     logger.info("=" * 60)
-    logger.info(" 书籍学习蓝图生成器 - 最终工程版 (通俗版)")
+    logger.info(" 书籍学习蓝图生成器 - 最终工程版 (统一格式)")
 
     cfg = load_config()
     if not cfg:
@@ -403,29 +422,21 @@ def main():
 
             logger.info(f"⏳ 生成中 [{idx+1}/{len(chapters)}]: {chapter_title}")
             try:
-                content = generate_chapter_content(client, cfg, system_prompt, cfg.book_title, chapter_title)
-                if content is None:
+                raw_content = generate_chapter_content(client, cfg, system_prompt, cfg.book_title, chapter_title)
+                if raw_content is None:
                     raise Exception("重试失败, 跳过本章")
-
-                # ---- 确保文章以章节标题开头 ----
-                if not content.lstrip().startswith('# '):
-                    content = f"# {chapter_title}\\n\\n{content}"
-                # 如果已有标题但可能不是我们期望的，保持原样也合理，这里只做最基本补充
-
+                formatted = format_chapter_content(raw_content, chapter_title)
                 with open(md_path, "w", encoding="utf-8") as f:
-                    f.write(content)
-
-                code_count = extract_code_blocks(content, chapter_dir)
+                    f.write(formatted)
+                code_count = extract_code_blocks(formatted, chapter_dir)
                 if code_count > 0:
                     logger.info(f"  ✅ 提取 {code_count} 个代码文件")
                 else:
                     logger.warning(f"  ⚠️ 未找到代码块, 已记录占位")
-
                 completed.add(chapter_title)
                 save_progress(completed)
                 total_success += 1
                 time.sleep(cfg.rate_limit_delay)
-
             except Exception as e:
                 logger.error(f"❌ 第 {idx+1} 章生成失败: {chapter_title}")
                 logger.error(f"   错误: {e}")
@@ -459,6 +470,7 @@ if __name__ == "__main__":
     main()
 """
 
+
 def create_project():
     base_dir = Path.cwd() / "book_ai_learning_engine"
     subdirs = ["prompts", "output", "code_labs", "logs"]
@@ -480,7 +492,7 @@ def create_project():
 
     config_content = """# 书籍信息
 book_title: "C++17 完整指南"
-category: "C++"        # 强制使用 "C++" 提示词模板（可选值：C++, Algorithms, ROS, OS, Networking, Design_Patterns, Linux, AI, Generic, auto）
+category: "C++"        # 强制使用 "C++" 提示词模板
 api_key: "sk-你的DeepSeekAPI密钥"
 model: "deepseek-chat"
 output_dir: "./output"
