@@ -1,3 +1,4 @@
+windows 运行
 # 首次运行
 ```
 执行指令： python.exe .\book_auto.py
@@ -47,6 +48,7 @@ table_of_contents:
 ```
 mode: "all"          # generate（仅生成） / merge（仅合并） / all （生成加合并）
 ```
+4. 将需要解析的文件放在book_ai_learning_engine 目录下
 
 # 最后合并后的文档可见
 https://blog.csdn.net/MMTS_yang/article/details/162654473?sharetype=blogdetail&sharerId=162654473&sharerefer=PC&sharesource=MMTS_yang&spm=1011.2480.3001.8118
