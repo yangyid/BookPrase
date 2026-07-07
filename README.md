@@ -1,5 +1,5 @@
 # 首次运行
-
+```
 执行指令： python.exe .\book_auto.py
 正在创建项目目录: D:\Test_AI\book_prease\book_ai_learning_engine ...
    ⏩ 跳过（已存在非空文件）: run.py
@@ -24,11 +24,13 @@
 3. 根据需要修改 category 字段
 4. 运行生成引擎: python run.py
 ============================================================
+```
 
 # 配置 
 1. 配置Dsp 的key
 2. 使用dsp的识图模式，识别出章节目录
 章节的目录严格按照如下格式
+```
 table_of_contents:
   - "第 1 章 结构化绑定"
   - "第 2 章 带初始化的if和switch语句"
@@ -40,8 +42,11 @@ table_of_contents:
   - "第 8 章 其他语言特性"
   - "第 9 章 类模板参数推导"
   - "第 10 章 编译期if语句"
+```
 3. 配置解析功能
+```
 mode: "all"          # generate（仅生成） / merge（仅合并） / all （生成加合并）
+```
 
 # 最后合并后的文档可见
 https://blog.csdn.net/MMTS_yang/article/details/162654473?sharetype=blogdetail&sharerId=162654473&sharerefer=PC&sharesource=MMTS_yang&spm=1011.2480.3001.8118
