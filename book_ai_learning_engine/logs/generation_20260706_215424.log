@@ -1,0 +1,88 @@
+2026-07-06 21:54:24,571 [INFO] ============================================================
+2026-07-06 21:54:24,571 [INFO]  书籍学习蓝图生成器 - 最终工程版 (允许章节前言)
+2026-07-06 21:54:24,577 [INFO]  模式: all
+2026-07-06 21:54:24,577 [INFO] ============================================================
+2026-07-06 21:54:26,538 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2026-07-06 21:54:28,579 [WARNING] 分类选择失败, 使用 Generic 模板: Expecting value: line 1 column 1 (char 0)
+2026-07-06 21:54:28,596 [INFO] 使用提示词模板: Generic.md
+2026-07-06 21:54:28,930 [INFO] 使用模型: deepseek-v4-pro
+2026-07-06 21:54:28,945 [INFO] 已生成 10/23 章
+2026-07-06 21:54:28,945 [INFO] ⏳ 生成中 [1/23]: 第1 章 引言
+2026-07-06 21:54:29,283 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2026-07-06 21:55:04,434 [INFO]   ✅ 提取 1 个代码文件
+2026-07-06 21:55:05,437 [INFO] ⏳ 生成中 [2/23]: 第2 章 C++编程、输入/输出和运算符简介
+2026-07-06 21:55:05,503 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2026-07-06 21:55:33,063 [INFO]   ✅ 提取 1 个代码文件
+2026-07-06 21:55:34,071 [INFO] ⏳ 生成中 [3/23]: 第3 章 类、对象和字符串简介
+2026-07-06 21:55:34,227 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2026-07-06 21:55:58,003 [INFO]   ✅ 提取 2 个代码文件
+2026-07-06 21:55:59,018 [INFO] ⏳ 生成中 [4/23]: 第4 章 控制语句：第1部分；赋值、++和--运算符
+2026-07-06 21:55:59,143 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2026-07-06 21:56:34,354 [INFO]   ✅ 提取 1 个代码文件
+2026-07-06 21:56:35,364 [INFO] ⏳ 生成中 [5/23]: 第5 章 控制语句：第2部分；逻辑运算符
+2026-07-06 21:56:35,435 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2026-07-06 21:57:09,690 [INFO]   ✅ 提取 2 个代码文件
+2026-07-06 21:57:10,705 [INFO] ⏳ 生成中 [6/23]: 第6 章 函数与递归简介
+2026-07-06 21:57:10,768 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2026-07-06 21:57:45,531 [INFO]   ✅ 提取 2 个代码文件
+2026-07-06 21:57:46,542 [INFO] ⏳ 生成中 [7/23]: 第7 章 类模板 array 和 vector；捕获异常
+2026-07-06 21:57:46,644 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2026-07-06 21:58:35,250 [INFO]   ✅ 提取 2 个代码文件
+2026-07-06 21:58:36,264 [INFO] ⏳ 生成中 [8/23]: 第8 章 指针
+2026-07-06 21:58:36,318 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2026-07-06 21:59:07,412 [INFO]   ✅ 提取 1 个代码文件
+2026-07-06 21:59:08,414 [INFO] ⏳ 生成中 [9/23]: 第9 章 类：深入探讨；抛出异常
+2026-07-06 21:59:08,483 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2026-07-06 21:59:45,892 [INFO]   ✅ 提取 1 个代码文件
+2026-07-06 21:59:46,896 [INFO] ⏳ 生成中 [10/23]: 第10 章 运算符重载；string 类
+2026-07-06 21:59:46,987 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2026-07-06 22:00:23,687 [INFO]   ✅ 提取 1 个代码文件
+2026-07-06 22:00:24,698 [INFO] ⏳ 生成中 [11/23]: 第11 章 面向对象编程：继承
+2026-07-06 22:00:24,861 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2026-07-06 22:01:29,284 [INFO]   ✅ 提取 1 个代码文件
+2026-07-06 22:01:30,300 [INFO] ⏳ 生成中 [12/23]: 第12 章 面向对象编程：多态性
+2026-07-06 22:01:30,362 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2026-07-06 22:02:09,025 [INFO]   ✅ 提取 1 个代码文件
+2026-07-06 22:02:10,027 [INFO] ⏳ 生成中 [13/23]: 第13 章 流输入/输出：深入探讨
+2026-07-06 22:02:10,087 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2026-07-06 22:02:49,601 [INFO]   ✅ 提取 2 个代码文件
+2026-07-06 22:02:50,608 [INFO] ⏳ 生成中 [14/23]: 第14 章 文件处理
+2026-07-06 22:02:50,681 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2026-07-06 22:03:40,133 [INFO]   ✅ 提取 1 个代码文件
+2026-07-06 22:03:41,142 [INFO] ⏳ 生成中 [15/23]: 第15 章 标准库容器与迭代器
+2026-07-06 22:03:41,335 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2026-07-06 22:04:25,550 [INFO]   ✅ 提取 3 个代码文件
+2026-07-06 22:04:26,553 [INFO] ⏳ 生成中 [16/23]: 第16 章 标准库算法
+2026-07-06 22:04:26,653 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2026-07-06 22:05:09,719 [INFO]   ✅ 提取 1 个代码文件
+2026-07-06 22:05:10,723 [INFO] ⏳ 生成中 [17/23]: 第17 章 异常处理：深入探讨
+2026-07-06 22:05:10,789 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2026-07-06 22:05:42,558 [INFO]   ✅ 提取 1 个代码文件
+2026-07-06 22:05:43,567 [INFO] ⏳ 生成中 [18/23]: 第18 章 自定义模板简介
+2026-07-06 22:05:43,644 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2026-07-06 22:06:10,411 [INFO]   ✅ 提取 1 个代码文件
+2026-07-06 22:06:11,417 [INFO] ⏳ 生成中 [19/23]: 第19 章 string 类和字符串流处理：深入探讨
+2026-07-06 22:06:11,492 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2026-07-06 22:06:48,222 [INFO]   ✅ 提取 2 个代码文件
+2026-07-06 22:06:49,228 [INFO] ⏳ 生成中 [20/23]: 第20 章 位、字符、C字符串和结构体
+2026-07-06 22:06:49,310 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2026-07-06 22:07:32,117 [INFO]   ✅ 提取 1 个代码文件
+2026-07-06 22:07:33,121 [INFO] ⏳ 生成中 [21/23]: 第21 章 其他主题
+2026-07-06 22:07:33,197 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2026-07-06 22:08:19,253 [INFO]   ✅ 提取 1 个代码文件
+2026-07-06 22:08:20,256 [INFO] ⏳ 生成中 [22/23]: 第22 章 ATM案例研究，第1部分：使用UML进行面向对象设计
+2026-07-06 22:08:20,361 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2026-07-06 22:08:55,672 [INFO]   ✅ 提取 1 个代码文件
+2026-07-06 22:08:56,675 [INFO] ⏳ 生成中 [23/23]: 第23 章 ATM案例研究，第2部分：实现面向对象设计
+2026-07-06 22:08:56,758 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2026-07-06 22:09:52,361 [INFO]   ✅ 提取 1 个代码文件
+2026-07-06 22:09:53,364 [INFO] ============================================================
+2026-07-06 22:09:53,364 [INFO] ✅ 生成执行完成！耗时: 928.8 秒
+2026-07-06 22:09:53,364 [INFO] ✅ 成功: 23 章 / 共 23 章
+2026-07-06 22:09:53,364 [INFO] 🎉 所有章节均生成成功！
+2026-07-06 22:09:53,364 [INFO] 📄 输出目录: D:\Test_AI\book_prease\book_ai_learning_engine\output
+2026-07-06 22:09:53,364 [INFO] 💻 代码目录: D:\Test_AI\book_prease\book_ai_learning_engine\code_labs
+2026-07-06 22:09:53,364 [INFO] 📋 日志文件: D:\Test_AI\book_prease\book_ai_learning_engine\logs\generation_20260706_215424.log
+2026-07-06 22:09:53,364 [INFO] 📚 正在合并所有章节为一个完整的文档...
+2026-07-06 22:09:53,706 [INFO] ✅ 所有章节已合并为完整书籍文档: D:\Test_AI\book_prease\book_ai_learning_engine\C++11 for Programmers_合集.md
+2026-07-06 22:09:53,706 [INFO] ============================================================
