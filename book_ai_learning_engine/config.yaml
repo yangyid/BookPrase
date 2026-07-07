@@ -1,0 +1,47 @@
+# 书籍信息
+book_title: "C++17 完整指南"
+category: "C++"        # 强制使用 "C++" 提示词模板（可选值：C++, Algorithms, ROS, OS, Networking, Design_Patterns, Linux, AI, Generic, auto）
+api_key: "sk-你的DeepSeekAPI密钥"
+model: "deepseek-chat"
+output_dir: "./output"
+max_concurrent_requests: 5
+api_timeout: 120
+mode: "all"          # generate / merge / all
+
+# 章节列表（标准 YAML 列表）
+table_of_contents:
+  - "第 1 章 结构化绑定"
+  - "第 2 章 带初始化的if和switch语句"
+  - "第 3 章 内联变量"
+  - "第 4 章 聚合体扩展"
+  - "第 5 章 强制省略拷贝或传递未实质化的对象"
+  - "第 6 章 lambda表达式扩展"
+  - "第 7 章 新属性和属性特性"
+  - "第 8 章 其他语言特性"
+  - "第 9 章 类模板参数推导"
+  - "第 10 章 编译期if语句"
+  - "第 11 章 折叠表达式"
+  - "第 12 章 处理字符串字面量模板参数"
+  - "第 13 章 占位符类型作为模板参数"
+  - "第 14 章 扩展的using声明"
+  - "第 15 章 std::optional<>"
+  - "第 16 章 std::variant<>"
+  - "第 17 章 std::any"
+  - "第 18 章 std::byte"
+  - "第 19 章 字符串视图"
+  - "第 20 章 文件系统库"
+  - "第 21 章 类型特征扩展"
+  - "第 22 章 并行STL算法"
+  - "第 23 章 新的STL算法详解"
+  - "第 24 章 子串和子序列搜索器"
+  - "第 25 章 其他工具函数和算法"
+  - "第 26 章 容器和字符串扩展"
+  - "第 27 章 多线程和并发"
+  - "第 28 章 标准库的其他微小特性和修改"
+  - "第 29 章 多态内存资源(PMR)"
+  - "第 30 章 使用new和delete管理超对齐数据"
+  - "第 31 章 std::to_chars()和std::from_chars()"
+  - "第 32 章 std::launder()"
+  - "第 33 章 编写泛型代码的改进"
+  - "第 34 章 总体性的C++17事项"
+  - "第 35 章 废弃和移除的特性"
